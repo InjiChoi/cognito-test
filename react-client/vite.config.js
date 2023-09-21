@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   envPrefix: ["COGNITO_", "BACKEND_"],
   server: {
-    port: 8080,
+    port: 5173,
   },
 });

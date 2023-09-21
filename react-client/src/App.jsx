@@ -19,11 +19,13 @@ const App = () => {
     //
     // Therefore, log out the user from the page using the auth.removeUser() method,
     // and then redirect the user to Cognito's logout endpoint to log the user out of the Cognito auth session.
+    alert('Logout')
     await auth.removeUser();
     location.replace(
-      `${import.meta.env.COGNITO_ENDPOINT}/logout?client_id=${
-        import.meta.env.COGNITO_CLIENT_ID
-      }&logout_uri=${window.location.origin}`
+      window.location.origin // TODO: fix
+      // `${import.meta.env.COGNITO_ENDPOINT}/logout?client_id=${
+      //   import.meta.env.COGNITO_CLIENT_ID
+      // }&logout_uri=${window.location.origin}/?redirect=true`
     );
   };
 
@@ -55,7 +57,10 @@ const App = () => {
     }).then(async (res) => {
       // if (res.ok) setSpecialResult((await res.json()).image);
       if (res.ok) alert("Completed!")
-      else setError((await res.json()).message);
+      else {
+        alert("Please Get Permission!")
+        setError((await res.json()).message)
+      };
     });
   };
 

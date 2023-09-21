@@ -62,11 +62,11 @@ async def grant_access(
             raise HTTPException(status_code=401, detail="Authorization header missing")
 
         # Use the `username` directly in your backend logic
-        # For example, add the user to the "audience" group
+        # For example, add the user to the "admin" group
         cognito.admin_add_user_to_group(
             UserPoolId=COGNITO_USER_POOL_ID,
             Username=username,
-            GroupName="audience"
+            GroupName="admin"
         )
 
         return {"message": "Permission granted!"}
@@ -79,7 +79,7 @@ async def grant_access(
 # Route to check access to a protected resource
 @app.get("/cat")
 def check_access(groups: str = Depends(get_user_groups)):
-    if "audience" not in groups:
+    if "admin" not in groups:
         raise HTTPException(status_code=403, detail="You are not authorized to perform this operation.")
     return {"message": "You are authorized to perform this operation."}
 
